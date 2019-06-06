@@ -1,0 +1,62 @@
+Notes from DL lesson 4
+
+Transfer learning is always a good trick and it also works well with NLP
+
+e.g. wikitext 103 language model (different than what we are doing for transfer learning), then IMDB language model, then IMDB classifier ==> sentiment analysis (binary)
+
+n-grams are not good at predicting the next word from adjacent words
+
+Text data bunch from fast.ai takes care of processing, such as punctuation, uncommon terms, HTML tags. The corpus is turned into lowercase, but there is a token that specifies if the next word is caps
+
+if the corpus is small, use as much as possible of labeled text to train the model, such as 90% (keeping only 10% for validation)
+
+for medical or legal language models, the accuracy tends to get higher faster
+
+for medical notes: start with wikipedia 103 then fine tune your model to your medical scripts corpus (language model)
+
+both the language model (language_model_learner) and the classifier (text_classifier_learner) take time (hours) to train. However, you probably only need to train the language model once, then build other classifiers
+
+freeze_to(-2) ==> will unfreeze the last two layers, useful for NLP RNN models
+
+Do we build the vocab again from scratch or we use the vocab from pre-trained wikitext model? We build it from scratch because we have new words that didn’t exist on wikipedia, then we match them.
+
+NN are super useful for tabular data!
+
+fast.ai expects tabular data to be in a pandas df
+
+feature engineering doesn't go away but it becomes easier (hand created features are less relevant) - check latest Pinterest publication
+
+When fitting with Wikipedia there is no risk of overfitting because that is not the task that we are going to test the model on. With IMDB as Sylvain said, there is a validation set to avoid overfitting.
+
+How to expand the vocab once the embeddings are learned?
+fastai will do that automatically for you: when you load your pretrained weights, it adapts them to the model. On words that were present in the pretrained model vocab, it puts the learned embeddings, and on new words, it puts the mean of al learned embeddings.
+When you train your model, the first stage when the body is frozen, is to make those new embeddings learn something better.
+
+
+categorical variables must be embedded
+continuous variables are easier
+transforms for text are called processes in the fast.ai library. e.g. fill missing, categorization, normalization. Remember that all transformers must be applied to train, validation and test sets. It's possible to add custom tokenizers as well for the processor argument. If a custom tokenizer is used, then it should be applied to both language models
+
+it's common to use continuous, rather than random splits fot structured data
+
+project idea: predict the age of the patient based on the notes
+
+if data is too big for pandas dataframe to fit in memory, one can use pandas chuncks. Other ideas are Dask or Spark but they are not yet supported by fast.ai
+
+collaborative filtering has the problem of cold start in RW applications (e.g. best time to recommend a product is when it's new but there are no reviews about it yet)
+
+The fine tuning on the language model is done with the IMDB dataset in an unsupervised manner. But the classification is done with the sentiment labels provided by the dataset.
+
+state of the art for NER (BERT): https://arxiv.org/abs/1810.04805
+
+Neural nets always love normalized data.
+
+embeddings are like bias added to the matrix e.g. of users and items
+(sum of dot product + user bias + item bias = get_embedding() + ranking bounds (min, max))
+
+parameters (weights + biases) ==> numbers to store
+activation (function) ==> numbers representing results
+
+every layer results in an activation (i.e. leads to other results)
+outputs
+final output layer will never be relu but more like softmax

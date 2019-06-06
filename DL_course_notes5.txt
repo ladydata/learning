@@ -1,0 +1,41 @@
+fast.ai lecture #5 notes
+
+-- activation function like relu work element-wise
+-- back propagation: parameter = parameter - learning_rate * parameter.grad
+-- in transfer learning, the last matrix of weights is replaced by a matrix of ramdon weights that is subsequentially trained further with your data
+-- from DataBunch, the number of activations needed is automatically defined
+-- so we freeze a model for transfer learning, it means "do not back propagate/update the previous layers"
+-- to further train the whole model, we then unfreeze. However, not all layers need to be trained, so we apply different learning rates for groups of layers (discriminative lr), starting smaller then increasing. This is fine tuning.
+-- By default, the lear CNN splits the layers in 3
+-- random weight initialization: the basic initialization is to use a normal distribution with a standard deviation depending on the number of input channels.
+-- embedding: array lookup (of indeces) instead of matrix multiplication with an OHE matrix. See example comparison in collab_filter.xlsx
+-- bias is added not like a "column of 1s", but actual biases, and it can improve the model (lower the loss)
+
+-- in collab_learner, y_range creates a sigmoid. Use a range a litte beyond the min-max of the range, e.g. movie ratins from 0.5 to 5, range from 0 to 5.5
+
+-- the loss should not be negative
+-- embeddngs may "discover" similarities
+-- regularization to avoid overfitting
+-- more parameters = less linearity (like in rela world), more interactivity, more overfitting
+-- example of regularization: add the sum of the squares of the weights to the model. This could be a very large number and eliminate most parameters, so we multiply this number by a small number, such as 0.1 (which is a good rule of thumb). This is the wd (weight decay) parameter in the collab_learner, for example. The default value, however, is 0.01.
+
+-- try nn.Linear (pytorch) to understand of it does with bias=True (input features, output features, bias)
+
+-- MSE for prediction, cross entropy for classification as loss functions
+-- weight decay is similar to L2 regularization
+-- fast.ai uses Adam optimizer rather than SGD
+
+-- batch size and dataset size relate to number of iterations (epochs). The larger the batch, the more iterations may be needed.
+
+-- momentum: e.g. take 90% of the last step size and add to 10% of the next step size, or the exponentially weighted moving average
+-- also: check RMSprop (Geoff W)
+-- Adam keeps track of both momentum and RMSprop. It still needs lr annealing.
+
+-- fit_one_cycle plots: lr x batch and momentum x batch (allows to train up to 10x faster)
+
+A larger batch will yield more accurate (less noisy) weight updates. The tradeoff is you get fewer weight updates per epoch. On the other hand, a small batch will yield noisier updates, but you get more updates per epoch. Although in most real-life applications, the higher you can fit on your GPU the better.
+
+-- check softmax and cross entropy Excel spreadsheet
+-- pytorch nn.CrossEntropyLoss() does softmax in addition to calculating cross entropy
+
+-- regularization: batch decay, dropout, weight decay, data augmentation

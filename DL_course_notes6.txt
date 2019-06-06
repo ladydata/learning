@@ -1,0 +1,59 @@
+-- Rossman notebook
+
+note that label_cls=FloatList because if your values are int, fast.ai will assume that you want to do classification, whereas if they're float, it will assume regression (which is the case with Rossman dataset)
+
+Dropout is a way to prevent NN to overfit (G Hinton, N Srivastava et al paper)
+
+Dropout randomly drops some activations with each mini-batch (it deletes the hidden layers and the inputs as well)
+
+Batch Normalization: accelerating DL training (Google) - it makes the training loss curve less bumpy
+
+less momentum = less regularization
+
+dropout versus weight decay: what to do for regularizations? Experiment!
+
+-- Pets
+
+Data Augmentation (for images): doc(get_transforms) docs.fast.ai - decreases data requirements (by 5-10x)
+
+heatmap shows areas that the model used the most to generate output
+
+check out http://setosa.io/ev/image-kernels = how convolutions work
+
+Each convolution is a result of multiple linear operations (matrix multiplication)
+
+padding adds additional numbers on the outside of the layer (for example, all zeros) as the convolution reduces the size of the layer (when multiplied by the kernel). There are 3 different paddings in fast.ai and reflection is the default because it usually works better.
+
+RGB kernels are 3D (the kernel is a "sliding window")
+
+The resulting output after each convolution will have width x height x kernels/depth (say, 16 kernels in the first convolution)
+
+We usually want lots of kernels so that the nodel can learn different details after each conv
+
+learn.model, learn.summary() for info about the model
+
+stride 2 convolution = apply kernel for every other pixel
+
+channel x height x width (PyTorch default format)
+
+Play around with the manual convolutions to see what you get! e.g. in notebook: edges of the image
+
+last layer: average pooling (to generate the output in the vector format)
+
+m[0] in the notebook is the convolutional part of the model (i.e. everything before average pooling)
+
+hooking in Pytorch keeps the results in the memory
+
+Study/play with Convolution kernel and Heatmap in the notebook, check shapes, outputs
+
+
+
+Generative models are the most prone to ethic concerns because we create new data
+
+How skewed is our data? The content will create a bias.
+Keep the intrinsic data bias for projects that matter.
+
+
+
+
+

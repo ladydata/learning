@@ -1,0 +1,77 @@
+# Lesson 2
+
+>> Crestle: it's free for now
+>> Colab: free Google research product
+>> SageMaker: large volume support
+
+Alena Harley - cancer tumor Medium
+Adam Geitgey Medium
+
+check Twitter for student who discovered the patterns that define different countries from satellite images
+
+>> Focus on learning from experiments
+
+verify_images checks of any images downloaded are corrupted
+
+train + valid + test splits
+top_losses: first images will represent the highest losses
+it's OK to have some noise as long as the noise is random, not biased
+
+production run: on CPU for inference (train model on GPU)
+it will take longer but it will be cheaper and easier to scale
+
+
+>> idea: estimate the age of the patient based on the notes
+>> play with DR Kaggle dataset
+
+>> Startlette web app toolkit (python 3 async)
+
+Try to create a web app for the image classifier
+
+For me, it seems to require CMD-OPTION-C on macOS (Safari 12.0) not CMD-OPTION-J to pull up the JavaScript Console.
+
+What is create_cnn vs ConvLearner?
+
+try ipywidgets
+
+>> train_loss > valid_loss: number of epochs or training rate are too low. Abort!
+>> too many epochs = overfitting (error rate up and down and up and down...)
+
+>> train_loss < valid_loss is good, but error should not get worse
+
+create_cnn:
+>> ps = dropout rate
+>> wd = weight decay
+
+np.argmax: returns the arg that represents the max value of an array (of probabilities)
+
+error_rate = 1-accuracy
+accuracy = average number of times it's a correct output
+doc(accuracy) ===> another way to get help in the notebook
+
+initial tunnig for lr = 3e-5 in the slice (10x less in the end of the slice: 3e-4)
+rule of thumb: learn.fit_one_cycle(4, 3e-5), adjust
+
+
+path, train=".", valid_pct=0.2
+path = current directory (where a folder named “models” is)
+valid_pct = 20% turned into validation set
+
+imbalanced data is not always an issue
+
+x@a: x dotproduct a
+
+images: 3D tensors 480 x 640 x 3 (w x l x number of channels: RGB)
+computation: l x w
+torch.ones(num_rows, num_cols)
+x[:,0].uniform_(-1, 1) underscore matters because it will not return but replace in x (in place)
+
+pytorch: .backward() calculates the gradient (derivative)
+try sgd notebook with a very large lr, a very small lr
+
+mini-batch: calculate gradient on e.g. 54 images, then another 54, then another 54...
+1000 images with 100 batch size = 10 batches
+
+
+I do not know if it is true in Fastai, but in Keras, if you have dropout layer, your training loss can be higher than validation loss, since dropout is not applied during validation.
+

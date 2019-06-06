@@ -1,0 +1,56 @@
+>> set up SageMaker following these instructions after the increase in SageMaker processing limit is approved: https://github.com/mattmcclean/sagemaker-fastai-notebook
+
+>> Check the forum for all updates on the fastai library (may have to run git pull)
+
+https://forums.fast.ai/t/study-group-37/
+
+>> NOTES FROM FIRST LECTURE:
+
+all images must have same dimensions for the most efficient use of GPUs.
+.normalize = normalize to zero mean and unit SD per RGB channel
+
+ConvLearner params: data, model architecture, metrics to print out.
+example: models.resnet34 ==> will download a pre-trained model to recognize cats and dogs.
+Using a pre-trained model is called transfer learning.
+resnet34 = 34 conv layers
+
+resnet50 requires more GPU RAM, one way to work this out is to use a smaller bs (batch size), i.e. make the images smaller
+
+fit_one_cycle(4, max_lr = slice(1e-6, 1e-4)): first arg is the number of epochs (how many times it goes through the entire data), second arg is a range for the learning rate
+
+.save will save the weights
+
+.plot_top_losses() # most confident about that it got wrong
+
+.most_confused: gets the most frequent errors from the confusion matrix
+
+For this week:
+0. install
+1. run the notebook
+2. create own images dataset
+3. get labels
+4. run on your own images
+
+ImageDataBunch:
+.from_folder
+.from_csv
+.from_name_re
+.from_name_func
+.from_lists
+.from_df
+
+doc(ImageDataBunch.from_folder) click on "show in docs"
+
+fastai_docs/docs_src: notebook to run examples from docs
+
+
+Visualizing and Understanding Conv Nets, Zeiler and Fergus
+
+TOWARDS natural language semantic search: https://githubengineering.com/towards-natural-language-semantic-code-search/
+
+pick one project and do it really well
+
+@alexandrecadrin
+@glagolista
+
+shift tab for docs

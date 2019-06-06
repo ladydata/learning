@@ -1,0 +1,58 @@
+# Lesson 3 notes
+
+Flask webapp: https://forums.fast.ai/t/lesson-3-in-class-discussion/29733/58?u=ladydata
+
+Kaggle API in Collab: https://forums.fast.ai/t/lesson-3-in-class-discussion/29733/73?u=ladydata
+
+PyTorch: Dataset class + DataLoader class =
+Fast.ai DataBunch class
+
+Check data_block API
+
+try shift+tab on get_transforms
+
+max_warp=0 for satellite images
+use accuracy of 0.2 for probability threshold for accuracy of satellite images
+
+metrics in the create_cnn function can get a list of metrics
+
+check out Py3 partial
+
+Planet example - transfer learning
+from 128x128 to 256x256
+1. create new data bunch with same transform but new size
+2. learn a few more layers using new data bunch
+
+a segmentation model (science applications) needs a pre-trained dataset, e.g. CAMVID
+
+use open_mask() to open images made up of integers (coding for what each pixel represent), instead of open_image()
+
+for segmentation, the validation dataset must be contiguous (?), not random
+
+tfm_y = True means to randomly flip the dependent variable, too
+
+bs = 8 is all that the GPU can reasonably handle in this case
+
+with camvid, one should remove the void pixels to calculate accuracy (acc_camvid function in the notebook)
+
+train_loss < valid_loss then underfitting. Use lower LR, decrease regularization, etc.
+
+biomedical image segmentation (and other applications): u-net architecture
+create_unet (rather than create_cnn)
+
+learn.recorder ==> keeps track of what is going on between LR and loss
+
+fit_one_cycle: pass a maximum LR, does LR annealing
+
+to_fp16() will only work on some GPU (16 bit position floating point) added to the learner (must have latest cuda drivers, graph cards)
+
+ImagePoints() is used when image files are represented by coordinates (e.g. head pose) - image regression to predict coordinates
+
+classification: cross-entropy loss
+regression: MSError loss
+
+neuralnetworksanddeeplearning.com
+
+small images <> larger batch size to fit GPU memory
+
+imagenet expects 3 channels (RGB), so if you have 2 channels you have to create a 3rd channel. If you have 4 channels, you'd have to modify the model (tensor dimension)
